@@ -10,37 +10,34 @@ number.focus()
 function generate() {
   let numberValue = number.value.trim()
 
-  if (numberValue != `` && !isNaN(numberValue)) {
-    if (numberValue < 0 || numberValue > 15) {
-      box.innerHTML = `Nth row must be between 0 and 15.`
-    }
-    else {
-      let rows = [[1]]
+  if (numberValue < 0 || numberValue > 15) {
+    box.innerHTML = `Nth row must be between 0 and 15.`
+  } else {
+    let rows = [[1]]
 
-      for (let i = 1; i <= numberValue; i++) {
-        rows[i] = [1]
+    for (let i = 1; i <= numberValue; i++) {
+      rows[i] = [1]
 
-        for (let j = 1; j < i; j++) {
-          rows[i].push(rows[i-1][j-1] + rows[i-1][j])
-        }
-
-        rows[i].push(1)
+      for (let j = 1; j < i; j++) {
+        rows[i].push(rows[i - 1][j - 1] + rows[i - 1][j])
       }
 
-      box.innerHTML = ``
+      rows[i].push(1)
+    }
 
-      for (let i = 0; i <= numberValue; i++) {
-        for (let j = 0; j < rows[i].length; j++) {
-          let left = (numberValue - i) / 2 + j
+    box.innerHTML = ``
 
-          let square = document.createElement(`div`)
-          square.classList.add(`square`)
-          square.style.left = `${left * 50}px`
-          square.style.top = `${i * 50}px`
-          square.innerHTML = rows[i][j]
+    for (let i = 0; i <= numberValue; i++) {
+      for (let j = 0; j < rows[i].length; j++) {
+        let left = (numberValue - i) / 2 + j
 
-          box.appendChild(square)
-        }
+        let square = document.createElement(`div`)
+        square.classList.add(`square`)
+        square.style.left = `${left * 50}px`
+        square.style.top = `${i * 50}px`
+        square.innerHTML = rows[i][j]
+
+        box.appendChild(square)
       }
     }
   }
